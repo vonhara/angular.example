@@ -1,10 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+//import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      /*schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]*/
     }).compileComponents();
   });
 
@@ -22,8 +26,9 @@ describe('AppComponent', () => {
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
+    const toolbarText = "Ohjelmistokehitysprosessin automatisointi -opintojakson harjoitusprojekti"
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-example');
+    expect(compiled.querySelector('.mat-toolbar span span')?.textContent).toContain(toolbarText);
   });
 });
