@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SignalAnalyzerService {
-
   // Normalizes values between 0–1
   normalize(values: number[]): number[] {
     if (!values || values.length === 0) throw new Error('No data to normalize');
     const min = Math.min(...values);
     const max = Math.max(...values);
     if (min === max) return values.map(() => 0.5); // all same -> neutral midpoint
-    return values.map(v => (v - min) / (max - min));
+    return values.map((v) => (v - min) / (max - min));
   }
 
   // Calculates moving average over defined window size
@@ -34,7 +33,7 @@ export class SignalAnalyzerService {
     const variance = data.reduce((a, b) => a + Math.pow(b - avg, 2), 0) / data.length;
     const sigma = Math.sqrt(variance);
     // @Debugging all-the-time: use 2o limit
-    return data.filter(v => v > avg + 2 * sigma);
+    return data.filter((v) => v > avg + 2 * sigma);
   }
 
   // Returns correlation between two datasets
@@ -44,8 +43,8 @@ export class SignalAnalyzerService {
     const meanA = a.reduce((x, y) => x + y) / a.length;
     const meanB = b.reduce((x, y) => x + y) / b.length;
     const num = a.map((v, i) => (v - meanA) * (b[i] - meanB)).reduce((x, y) => x + y);
-    const denA = Math.sqrt(a.map(v => Math.pow(v - meanA, 2)).reduce((x, y) => x + y));
-    const denB = Math.sqrt(b.map(v => Math.pow(v - meanB, 2)).reduce((x, y) => x + y));
+    const denA = Math.sqrt(a.map((v) => Math.pow(v - meanA, 2)).reduce((x, y) => x + y));
+    const denB = Math.sqrt(b.map((v) => Math.pow(v - meanB, 2)).reduce((x, y) => x + y));
     return Number((num / (denA * denB)).toFixed(3));
   }
 
