@@ -16,7 +16,7 @@ describe('SignalAnalyzerService', () => {
 
   it('should handle identical values by returning midpoint', () => {
     const result = service.normalize([5, 5, 5]);
-    expect(result.every(v => v === 0.5)).toBeTrue();
+    expect(result.every((v) => v === 0.5)).toBeTrue();
   });
 
   it('should compute moving average correctly', () => {
